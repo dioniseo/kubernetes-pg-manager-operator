@@ -14,7 +14,7 @@ resources:
   controller: true
   domain: minikube.local
   group: postgres.db.management
-  kind: PostgresDbManager
+  kind: PostgresDatabase
   path: github.com/dioniseo/kubernetes-pg-manager-operator/api/v1alpha1
   version: v1alpha1
 version: "3"

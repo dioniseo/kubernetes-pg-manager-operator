@@ -23,13 +23,14 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// PostgresDbManagerSpec defines the desired state of PostgresDbManager.
-type PostgresDbManagerSpec struct {
+// PostgresDatabaseSpec defines the desired state of PostgresDatabase.
+type PostgresDatabaseSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of PostgresDbManager. Edit postgresdbmanager_types.go to remove/update
-	DbAddress           string              `json:"dbAddress"`
+	// Foo is an example field of PostgresDatabase. Edit postgresdatabase_types.go to remove/update
+	DbHost              string              `json:"dbHost"`
+	DbPort              int                 `json:"dbPort"`
 	DbName              string              `json:"dbName"`
 	DbCredentialsSecret DbCredentialsSecret `json:"dbCredentialsSecret"`
 	DbCaSecret          DbCaSecret          `json:"dbCaSecret,omitempty"`
@@ -46,8 +47,8 @@ type DbCredentialsSecret struct {
 	PasswordKey string `json:"passwordKey"`
 }
 
-// PostgresDbManagerStatus defines the observed state of PostgresDbManager.
-type PostgresDbManagerStatus struct {
+// PostgresDatabaseStatus defines the observed state of PostgresDatabase.
+type PostgresDatabaseStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
@@ -57,24 +58,24 @@ type PostgresDbManagerStatus struct {
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 
-// PostgresDbManager is the Schema for the postgresdbmanagers API.
-type PostgresDbManager struct {
+// PostgresDatabase is the Schema for the postgresdatabases API.
+type PostgresDatabase struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   PostgresDbManagerSpec   `json:"spec,omitempty"`
-	Status PostgresDbManagerStatus `json:"status,omitempty"`
+	Spec   PostgresDatabaseSpec   `json:"spec,omitempty"`
+	Status PostgresDatabaseStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// PostgresDbManagerList contains a list of PostgresDbManager.
-type PostgresDbManagerList struct {
+// PostgresDatabaseList contains a list of PostgresDatabase.
+type PostgresDatabaseList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []PostgresDbManager `json:"items"`
+	Items           []PostgresDatabase `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&PostgresDbManager{}, &PostgresDbManagerList{})
+	SchemeBuilder.Register(&PostgresDatabase{}, &PostgresDatabaseList{})
 }

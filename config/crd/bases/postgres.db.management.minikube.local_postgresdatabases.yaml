@@ -4,20 +4,20 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.4
-  name: postgresdbmanagers.postgres.db.management.minikube.local
+  name: postgresdatabases.postgres.db.management.minikube.local
 spec:
   group: postgres.db.management.minikube.local
   names:
-    kind: PostgresDbManager
-    listKind: PostgresDbManagerList
-    plural: postgresdbmanagers
-    singular: postgresdbmanager
+    kind: PostgresDatabase
+    listKind: PostgresDatabaseList
+    plural: postgresdatabases
+    singular: postgresdatabase
   scope: Namespaced
   versions:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: PostgresDbManager is the Schema for the postgresdbmanagers API.
+        description: PostgresDatabase is the Schema for the postgresdatabases API.
         properties:
           apiVersion:
             description: |-
@@ -37,12 +37,8 @@ spec:
           metadata:
             type: object
           spec:
-            description: PostgresDbManagerSpec defines the desired state of PostgresDbManager.
+            description: PostgresDatabaseSpec defines the desired state of PostgresDatabase.
             properties:
-              dbAddress:
-                description: Foo is an example field of PostgresDbManager. Edit postgresdbmanager_types.go
-                  to remove/update
-                type: string
               dbCaSecret:
                 properties:
                   caKeyName:
@@ -66,15 +62,22 @@ spec:
                 - secretName
                 - usernameKey
                 type: object
+              dbHost:
+                description: Foo is an example field of PostgresDatabase. Edit postgresdatabase_types.go
+                  to remove/update
+                type: string
               dbName:
                 type: string
+              dbPort:
+                type: integer
             required:
-            - dbAddress
             - dbCredentialsSecret
+            - dbHost
             - dbName
+            - dbPort
             type: object
           status:
-            description: PostgresDbManagerStatus defines the observed state of PostgresDbManager.
+            description: PostgresDatabaseStatus defines the observed state of PostgresDatabase.
             properties:
               lastSyncTime:
                 format: date-time

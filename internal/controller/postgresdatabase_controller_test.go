@@ -30,7 +30,7 @@ import (
 	postgresdbmanagementv1alpha1 "github.com/dioniseo/kubernetes-pg-manager-operator/api/v1alpha1"
 )
 
-var _ = Describe("PostgresDbManager Controller", func() {
+var _ = Describe("PostgresDatabase Controller", func() {
 	Context("When reconciling a resource", func() {
 		const resourceName = "test-resource"
 
@@ -40,13 +40,13 @@ var _ = Describe("PostgresDbManager Controller", func() {
 			Name:      resourceName,
 			Namespace: "default", // TODO(user):Modify as needed
 		}
-		postgresdbmanager := &postgresdbmanagementv1alpha1.PostgresDbManager{}
+		postgresdatabase := &postgresdbmanagementv1alpha1.PostgresDatabase{}
 
 		BeforeEach(func() {
-			By("creating the custom resource for the Kind PostgresDbManager")
-			err := k8sClient.Get(ctx, typeNamespacedName, postgresdbmanager)
+			By("creating the custom resource for the Kind PostgresDatabase")
+			err := k8sClient.Get(ctx, typeNamespacedName, postgresdatabase)
 			if err != nil && errors.IsNotFound(err) {
-				resource := &postgresdbmanagementv1alpha1.PostgresDbManager{
+				resource := &postgresdbmanagementv1alpha1.PostgresDatabase{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      resourceName,
 						Namespace: "default",
@@ -59,16 +59,16 @@ var _ = Describe("PostgresDbManager Controller", func() {
 
 		AfterEach(func() {
 			// TODO(user): Cleanup logic after each test, like removing the resource instance.
-			resource := &postgresdbmanagementv1alpha1.PostgresDbManager{}
+			resource := &postgresdbmanagementv1alpha1.PostgresDatabase{}
 			err := k8sClient.Get(ctx, typeNamespacedName, resource)
 			Expect(err).NotTo(HaveOccurred())
 
-			By("Cleanup the specific resource instance PostgresDbManager")
+			By("Cleanup the specific resource instance PostgresDatabase")
 			Expect(k8sClient.Delete(ctx, resource)).To(Succeed())
 		})
 		It("should successfully reconcile the resource", func() {
 			By("Reconciling the created resource")
-			controllerReconciler := &PostgresDbManagerReconciler{
+			controllerReconciler := &PostgresDatabaseReconciler{
 				Client: k8sClient,
 				Scheme: k8sClient.Scheme(),
 			}

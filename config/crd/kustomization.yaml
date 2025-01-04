@@ -2,7 +2,7 @@
 # since it depends on service name and namespace that are out of this kustomize package.
 # It should be run by config/default
 resources:
-- bases/postgres.db.management.minikube.local_postgresdbmanagers.yaml
+- bases/postgres.db.management.minikube.local_postgresdatabases.yaml
 # +kubebuilder:scaffold:crdkustomizeresource
 
 patches:

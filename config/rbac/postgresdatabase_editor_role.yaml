@@ -1,23 +1,27 @@
-# permissions for end users to view postgresdbmanagers.
+# permissions for end users to edit postgresdatabases.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/name: kubernetes-pg-manager-operator
     app.kubernetes.io/managed-by: kustomize
-  name: postgresdbmanager-viewer-role
+  name: postgresdatabase-editor-role
 rules:
 - apiGroups:
   - postgres.db.management.minikube.local
   resources:
-  - postgresdbmanagers
+  - postgresdatabases
   verbs:
+  - create
+  - delete
   - get
   - list
+  - patch
+  - update
   - watch
 - apiGroups:
   - postgres.db.management.minikube.local
   resources:
-  - postgresdbmanagers/status
+  - postgresdatabases/status
   verbs:
   - get

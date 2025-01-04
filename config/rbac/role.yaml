@@ -7,7 +7,7 @@ rules:
 - apiGroups:
   - postgres.db.management.minikube.local
   resources:
-  - postgresdbmanagers
+  - postgresdatabases
   verbs:
   - create
   - delete
@@ -19,13 +19,13 @@ rules:
 - apiGroups:
   - postgres.db.management.minikube.local
   resources:
-  - postgresdbmanagers/finalizers
+  - postgresdatabases/finalizers
   verbs:
   - update
 - apiGroups:
   - postgres.db.management.minikube.local
   resources:
-  - postgresdbmanagers/status
+  - postgresdatabases/status
   verbs:
   - get
   - patch
