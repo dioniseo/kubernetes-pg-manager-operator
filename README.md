@@ -1,0 +1,1 @@
+# kubernetes-pg-manager-operator
