@@ -43,6 +43,16 @@ spec:
                 description: Foo is an example field of PostgresDbManager. Edit postgresdbmanager_types.go
                   to remove/update
                 type: string
+              dbCaSecret:
+                properties:
+                  caKeyName:
+                    type: string
+                  secretName:
+                    type: string
+                required:
+                - caKeyName
+                - secretName
+                type: object
               dbCredentialsSecret:
                 properties:
                   passwordKey:

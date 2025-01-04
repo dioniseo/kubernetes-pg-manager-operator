@@ -32,6 +32,12 @@ type PostgresDbManagerSpec struct {
 	DbAddress           string              `json:"dbAddress"`
 	DbName              string              `json:"dbName"`
 	DbCredentialsSecret DbCredentialsSecret `json:"dbCredentialsSecret"`
+	DbCaSecret          DbCaSecret          `json:"dbCaSecret,omitempty"`
+}
+
+type DbCaSecret struct {
+	SecretName string `json:"secretName"`
+	KeyName    string `json:"caKeyName"`
 }
 
 type DbCredentialsSecret struct {
