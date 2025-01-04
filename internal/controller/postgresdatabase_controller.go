@@ -82,7 +82,24 @@ func (r *PostgresDatabaseReconciler) Reconcile(ctx context.Context, req ctrl.Req
 		"password=%s dbname=%s sslmode=disable",
 		dbHost, dbPort, username, password, dbName)
 
-	// TODO(user): your logic here
+	db, err := sql.Open("postgres", psqlInfo)
+	if err != nil {
+		panic(err)
+	}
+
+	err = db.Ping()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Successfully connected to the database!")
+
+	defer func(db *sql.DB) {
+		err := db.Close()
+		if err != nil {
+			panic(err)
+		}
+	}(db)
 
 	return ctrl.Result{}, nil
 }
