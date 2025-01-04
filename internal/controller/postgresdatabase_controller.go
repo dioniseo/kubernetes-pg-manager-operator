@@ -18,15 +18,13 @@ package controller
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/log"
-
-	"database/sql"
 
 	_ "github.com/lib/pq"
 
@@ -79,8 +77,8 @@ func (r *PostgresDatabaseReconciler) Reconcile(ctx context.Context, req ctrl.Req
 		dbHost, dbPort, dbName, username, password)
 
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		dbHost, dbPort, username, password, dbName)
+		"password=%s dbname=postgres sslmode=disable",
+		dbHost, dbPort, username, password)
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
@@ -93,6 +91,11 @@ func (r *PostgresDatabaseReconciler) Reconcile(ctx context.Context, req ctrl.Req
 	}
 
 	fmt.Println("Successfully connected to the database!")
+
+	_, err = db.Exec("create database $1", dbName)
+	if err != nil {
+		panic(err)
+	}
 
 	defer func(db *sql.DB) {
 		err := db.Close()
