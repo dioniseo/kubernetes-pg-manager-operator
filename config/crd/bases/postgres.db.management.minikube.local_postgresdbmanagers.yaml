@@ -1,0 +1,79 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.4
+  name: postgresdbmanagers.postgres.db.management.minikube.local
+spec:
+  group: postgres.db.management.minikube.local
+  names:
+    kind: PostgresDbManager
+    listKind: PostgresDbManagerList
+    plural: postgresdbmanagers
+    singular: postgresdbmanager
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: PostgresDbManager is the Schema for the postgresdbmanagers API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: PostgresDbManagerSpec defines the desired state of PostgresDbManager.
+            properties:
+              dbAddress:
+                description: Foo is an example field of PostgresDbManager. Edit postgresdbmanager_types.go
+                  to remove/update
+                type: string
+              dbCredentialsSecret:
+                properties:
+                  passwordKey:
+                    type: string
+                  secretName:
+                    type: string
+                  usernameKey:
+                    type: string
+                required:
+                - passwordKey
+                - secretName
+                - usernameKey
+                type: object
+              dbName:
+                type: string
+            required:
+            - dbAddress
+            - dbCredentialsSecret
+            - dbName
+            type: object
+          status:
+            description: PostgresDbManagerStatus defines the observed state of PostgresDbManager.
+            properties:
+              lastSyncTime:
+                format: date-time
+                type: string
+            required:
+            - lastSyncTime
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
